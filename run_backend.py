@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+import sys
+import os
+import uvicorn
+
+# Add the backend directory to Python path
+backend_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "backend")
+sys.path.insert(0, backend_dir)
+
+if __name__ == "__main__":
+    # Run the server with import string for reload functionality
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True
+    )
