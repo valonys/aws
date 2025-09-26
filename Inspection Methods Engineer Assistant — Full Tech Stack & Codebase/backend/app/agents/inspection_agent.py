@@ -15,20 +15,16 @@ class InspectionAgent:
     
     def process_query(self, query: str) -> str:
         """Process a user query and return a response"""
-        try:
-            # Retrieve relevant documents from the RAG system
-            relevant_docs = retrieve_relevant_documents(query)
-            
-            # Prepare the context for the LLM
-            context = self._prepare_context(query, relevant_docs)
-            
-            # Generate a response using the LLM
-            response = self._generate_response(context)
-            
-            return response
-        except Exception as e:
-            # Return a helpful error message if something goes wrong
-            return f"I apologize, but I encountered an issue processing your query. Error: {str(e)}. Please try again or contact support if the issue persists."
+        # Retrieve relevant documents from the RAG system
+        relevant_docs = retrieve_relevant_documents(query)
+        
+        # Prepare the context for the LLM
+        context = self._prepare_context(query, relevant_docs)
+        
+        # Generate a response using the LLM
+        response = self._generate_response(context)
+        
+        return response
     
     def _prepare_context(self, query: str, documents: List[Dict[str, Any]]) -> str:
         """Prepare the context for the LLM based on the query and retrieved documents"""

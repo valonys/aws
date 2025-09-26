@@ -21,8 +21,9 @@ class Settings:
         self.DATABASE_URL: Optional[str] = os.getenv("DATABASE_URL")
         
         # Vector DB Configuration
-        self.CHROMA_HOST: str = os.getenv("CHROMA_HOST", "chroma")
+        self.CHROMA_HOST: str = os.getenv("CHROMA_HOST", "localhost")
         self.CHROMA_PORT: int = int(os.getenv("CHROMA_PORT", "8000"))
+        self.CHROMA_PERSIST_DIRECTORY: str = os.getenv("CHROMA_PERSIST_DIRECTORY", "./chroma_db")
         
         # MCP Server Configuration
         self.MCP_SERVER_HOST: str = os.getenv("MCP_SERVER_HOST", "mcp-server")

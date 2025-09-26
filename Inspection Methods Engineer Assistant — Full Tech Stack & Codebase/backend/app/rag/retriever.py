@@ -13,12 +13,11 @@ def retrieve_relevant_documents(query: str, collection_name: str = "default", to
     # Get ChromaDB client
     chroma_client = get_chroma_client()
     
-    try:
-        # Try to get existing collection
-        collection = chroma_client.get_collection(name=collection_name)
-    except Exception:
-        # If collection doesn't exist, create it
-        collection = chroma_client.get_or_create_collection(name=collection_name)
+    # Get collection
+    collection = chroma_client.get_collection(name=collection_name)
+    
+    # Get collection
+    collection = chroma_client.get_collection(name=collection_name)
     
     # Use text-based search instead of embeddings since Groq doesn't support embeddings
     # This is a simplified approach - in production you'd use a proper embedding service

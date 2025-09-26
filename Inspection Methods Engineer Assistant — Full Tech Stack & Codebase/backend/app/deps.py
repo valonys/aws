@@ -22,21 +22,14 @@ def get_db() -> Generator[Session, None, None]:
 
 def get_chroma_client():
     """Dependency for getting a ChromaDB client"""
-    import chromadb
+    from chromadb import Client
+    from chromadb.config import Settings as ChromaSettings
     
-    # For ChromaDB 1.1.0+, use the new API
-    # Check if we're connecting to a remote server or using local persistence
-    if settings.CHROMA_HOST != "localhost" and settings.CHROMA_HOST != "127.0.0.1":
-        # Remote server connection
-        chroma_client = chromadb.HttpClient(
-            host=settings.CHROMA_HOST,
-            port=settings.CHROMA_PORT
-        )
-    else:
-        # Local persistent client
-        chroma_client = chromadb.PersistentClient(
-            path=settings.CHROMA_PERSIST_DIRECTORY
-        )
+    chroma_client = Client(ChromaSettings(
+        chroma_api_impl="rest",
+        chroma_server_host=settings.CHROMA_HOST,
+        chroma_server_http_port=settings.CHROMA_PORT
+    ))
     
     return chroma_client
 
