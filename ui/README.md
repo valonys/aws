@@ -66,3 +66,34 @@ export function DashboardView() {
   // render from `data`
 }
 ```
+
+## DocVision single-file analysis UI
+
+The `src/docvision` directory contains a self-contained React experience for uploading PDFs/PPTX files, extracting their
+contents with `pdfjs-dist`, `jszip`, `fast-xml-parser`, and optional OCR via `tesseract.js`, and forwarding structured
+prompts to multimodal LLM providers (OpenAI, Gemini, xAI Grok, Alibaba Qwen). The entry point is the `DocVisionApp`
+component, exported from `src/docvision/index.ts`.
+
+Key characteristics:
+
+- **Modular data pipeline** – parsing, OCR, prompt construction, and provider adapters live in dedicated modules to keep the
+  React tree lightweight.
+- **Resilient UX** – drag-and-drop uploads, removable file list, timestamped activity log, and inline progress banner make it
+  easier to understand extraction steps and troubleshoot failures.
+- **Provider flexibility** – API keys persist in local storage only; adapters use simple `fetch` calls so you can swap in
+  official SDKs or proxy calls through your backend for CORS control.
+
+To embed it in the existing UI, import the component where appropriate (for instance, a new route or tab) and ensure the
+dependencies are installed:
+
+```bash
+npm install pdfjs-dist tesseract.js jszip fast-xml-parser
+```
+
+```tsx
+import { DocVisionApp } from "./docvision";
+
+export default function AnalysisRoute() {
+  return <DocVisionApp />;
+}
+```
