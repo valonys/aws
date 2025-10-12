@@ -55,7 +55,7 @@ export async function extractFromPPTX(file: File): Promise<ExtractedUnit[]> {
         : [rels.Relationships.Relationship];
       for (const rel of relationships) {
         if (rel["@_Type"]?.includes("image")) {
-          const normalized = rel["@_Target"].replace(/^[.\\/]+/, "");
+          const normalized = rel["@_Target"].replace(/^[.\\\/]+/, "");
           const path = `ppt/${normalized}`;
           const url = await toBlobUrl(path);
           if (url) {
